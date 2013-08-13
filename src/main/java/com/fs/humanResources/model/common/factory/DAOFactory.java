@@ -1,6 +1,8 @@
 package com.fs.humanResources.model.common.factory;
 
 
+import com.fs.humanResources.model.employee.dao.EmployeeDAO;
+
 import java.util.HashMap;
 
 public class DAOFactory {
@@ -23,6 +25,14 @@ public class DAOFactory {
 
     private DAOFactory() {
         daoCache = new HashMap<String,Object>();
+    }
+
+    public EmployeeDAO newEmployDAO() {
+        if(!daoCache.containsKey(EmployeeDAO.class)){
+            daoCache.put(EmployeeDAO.class, new EmployeeDAO());
+        }
+
+        return (EmployeeDAO) daoCache.get(EmployeeDAO.class);
     }
 
 }

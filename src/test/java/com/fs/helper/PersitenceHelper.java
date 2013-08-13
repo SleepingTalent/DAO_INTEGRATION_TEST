@@ -1,5 +1,7 @@
 package com.fs.helper;
 
+import com.fs.humanResources.model.common.factory.DAOFactory;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -10,7 +12,10 @@ public class PersitenceHelper {
 
     private EntityTransaction entityTransaction;
 
+    private DAOFactory daoFactory;
+
     public PersitenceHelper(EntityManager entityManager) {
+        this.daoFactory = DAOFactory.getInstance();
         this.entityManager = entityManager;
     }
 
