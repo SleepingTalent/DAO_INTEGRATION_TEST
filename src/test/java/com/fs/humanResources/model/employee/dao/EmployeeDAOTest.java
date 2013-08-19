@@ -20,7 +20,8 @@ import static org.mockito.Mockito.*;
 public class EmployeeDAOTest extends BaseUnitTest {
 
     public static final String COUNT_QUERY = "SELECT count(o) from Employee o ";
-    public static final String EMPLOYEE_ID_QUERY = "select employee from Employee employee where employee.employeeId=:thisEmployeeId";
+    public static final String EMPLOYEE_ID_QUERY = "select e from Employee e where e.staffNumber = :thisStaffNumber";
+
     @InjectMocks
     EmployeeDAO employeeDAO;
 
@@ -106,9 +107,9 @@ public class EmployeeDAOTest extends BaseUnitTest {
 
     @Test
     public void getEmployeeDetails_returns_expected_employee() {
-        Long employeeId = 1234l;
+        Long staffNumber = 1234l;
 
-        Employee actualEmployee = employeeDAO.getEmployeeDetails(employeeId);
+        Employee actualEmployee = employeeDAO.getEmployeeDetails(staffNumber);
         Assert.assertEquals(employee.getId(), actualEmployee.getId());
 
         verify(entityManager, times(1)).createQuery(EMPLOYEE_ID_QUERY);

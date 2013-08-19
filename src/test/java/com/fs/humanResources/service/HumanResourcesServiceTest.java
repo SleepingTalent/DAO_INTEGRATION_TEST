@@ -57,7 +57,7 @@ public class HumanResourcesServiceTest extends BaseUnitTest {
 
         Assert.assertEquals(employee.getFirstName(), actual.getFirstName());
         Assert.assertEquals(employee.getLastName(), actual.getLastName());
-        Assert.assertEquals(employee.getEmployeeId(), actual.getEmpolyeeId());
+        Assert.assertEquals(employee.getStaffNumber(), actual.getEmpolyeeId());
         Assert.assertEquals(employee.getDateOfBirth(), actual.getDateOfBirth());
 
         Assert.assertEquals(employee.getAddressList().size(), 1);
@@ -99,7 +99,7 @@ public class HumanResourcesServiceTest extends BaseUnitTest {
 
         Employee employee = new Employee();
         employee.setId(12345l);
-        employee.setEmployeeId(employeeId);
+        employee.setStaffNumber(employeeId);
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
         employee.setDateOfBirth(dataOfBirth);

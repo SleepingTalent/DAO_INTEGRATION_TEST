@@ -28,7 +28,7 @@ public class EmployeeViewBean {
 
     public EmployeeViewBean(Employee employee) {
         this(employee.getFirstName(),employee.getLastName(),
-                employee.getDateOfBirth(),employee.getEmployeeId());
+                employee.getDateOfBirth(),employee.getStaffNumber());
 
        AddressHelper addressHelper = new AddressHelper();
        this.address =  new AddressViewBean(addressHelper.findPrimaryAddress(employee.getAddressList()));

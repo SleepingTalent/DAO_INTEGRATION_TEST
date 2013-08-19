@@ -1,6 +1,7 @@
 package com.fs.helper;
 
-import com.fs.humanResources.model.common.factory.DAOFactory;
+import com.fs.humanResources.model.address.dao.AddressDAO;
+import com.fs.humanResources.model.address.entities.Address;
 import com.fs.humanResources.model.employee.dao.EmployeeDAO;
 import com.fs.humanResources.model.employee.entities.Employee;
 import org.junit.Assert;
@@ -52,5 +53,18 @@ public class PersitenceHelper {
         Assert.assertNotNull("Expected Id to be populated!",employee.getId());
 
         return employee;
+    }
+
+    public Address persistNewAddress(Address address, Employee employee) {
+        address.setEmployee(employee);
+
+        Assert.assertNull("Expected Id to be Null!",address.getId());
+
+        AddressDAO addressDAO = new AddressDAO(entityManager);
+        addressDAO.create(address);
+
+        Assert.assertNotNull("Expected Id to be populated!",address.getId());
+
+        return address;
     }
 }

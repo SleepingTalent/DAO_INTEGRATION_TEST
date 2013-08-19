@@ -17,7 +17,7 @@ public class Employee extends BaseEntity {
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
-    private Long employeeId;
+    private Long staffNumber;
 
     @OneToMany(mappedBy="employee",cascade=CascadeType.PERSIST)
     private List<Address> addressList;
@@ -42,8 +42,8 @@ public class Employee extends BaseEntity {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
+    public void setStaffNumber(Long employeeId) {
+        this.staffNumber = employeeId;
     }
 
     public void setAddressList(List<Address> address) {
@@ -62,8 +62,8 @@ public class Employee extends BaseEntity {
         return dateOfBirth;
     }
 
-    public Long getEmployeeId() {
-        return employeeId;
+    public Long getStaffNumber() {
+        return staffNumber;
     }
 
     public List<Address> getAddressList() {
