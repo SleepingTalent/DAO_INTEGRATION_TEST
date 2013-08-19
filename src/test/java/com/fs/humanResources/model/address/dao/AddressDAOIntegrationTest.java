@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import javax.persistence.NoResultException;
 import java.util.Date;
+import java.util.List;
 
 public class AddressDAOIntegrationTest extends BaseDAOTest {
 
@@ -127,6 +128,14 @@ public class AddressDAOIntegrationTest extends BaseDAOTest {
         Assert.assertEquals(mainAddress.getTownCity(),actual.getTownCity());
         Assert.assertEquals(mainAddress.getPostCode(),actual.getPostCode());
     }
+
+    @Test
+    public void getEmployeeAddressList_returns_AsExpected() {
+        List<Address> actual = addressDAO.getEmployeeAddressList(employee);
+        Assert.assertEquals(2,actual.size());
+
+    }
+
 
 
 }

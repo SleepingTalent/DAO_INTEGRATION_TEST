@@ -2,6 +2,8 @@ package com.fs.common;
 
 import com.fs.helper.EntityManagerHelper;
 import com.fs.helper.PersitenceHelper;
+import com.fs.humanResources.model.address.helper.AddressHelper;
+
 import javax.persistence.EntityManager;
 
 public class BaseDAOTest {
@@ -24,5 +26,9 @@ public class BaseDAOTest {
 
     protected EntityManager getEntityManager() {
         return entityManager;
+    }
+
+    protected AddressHelper getAddressHelper() {
+        return new AddressHelper();
     }
 }
