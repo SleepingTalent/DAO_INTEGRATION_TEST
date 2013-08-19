@@ -1,7 +1,6 @@
 package com.fs.humanResources.model.address.dao;
 
 import com.fs.common.BaseUnitTest;
-import com.fs.humanResources.model.address.dao.AddressDAO;
 import com.fs.humanResources.model.address.entities.Address;
 import com.fs.humanResources.model.employee.entities.Employee;
 import org.junit.Assert;
@@ -16,11 +15,13 @@ import javax.persistence.Query;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
 public class AddressDAOTest extends BaseUnitTest {
+
+    public static final String COUNT_QUERY = "SELECT count(o) from Address o ";
+    public static final String EMPLOYEE_PRIMARY_ADDRESS_QUERY = "select a from Address a where a.employee = :thisEmployee and a.primaryAddress = true";
 
     @InjectMocks
     AddressDAO addressDAO;
@@ -29,7 +30,10 @@ public class AddressDAOTest extends BaseUnitTest {
     EntityManager entityManager;
 
     @Mock
-    Query query;
+    Query countQuery;
+
+    @Mock
+    Query primaryAddressQuery;
 
     Long expectedCount;
 
@@ -53,8 +57,12 @@ public class AddressDAOTest extends BaseUnitTest {
 
         address.setEmployee(employee);
 
-        when(entityManager.createQuery(anyString())).thenReturn(query);
-        when(query.getSingleResult()).thenReturn(expectedCount);
+        when(entityManager.createQuery(COUNT_QUERY)).thenReturn(countQuery);
+        when(countQuery.getSingleResult()).thenReturn(expectedCount);
+
+
+        when(entityManager.createQuery(EMPLOYEE_PRIMARY_ADDRESS_QUERY)).thenReturn(primaryAddressQuery);
+        when(primaryAddressQuery.getSingleResult()).thenReturn(address);
 
         when(entityManager.find(any(Class.class), anyLong())).thenReturn(address);
     }
@@ -65,8 +73,8 @@ public class AddressDAOTest extends BaseUnitTest {
 
         Assert.assertEquals(expectedCount, actualCount);
 
-        verify(entityManager, times(1)).createQuery(eq("SELECT count(o) from Address o "));
-        verify(query,times(1)).getSingleResult();
+        verify(entityManager, times(1)).createQuery(eq(COUNT_QUERY));
+        verify(countQuery,times(1)).getSingleResult();
     }
 
     @Test
@@ -101,5 +109,14 @@ public class AddressDAOTest extends BaseUnitTest {
         Assert.assertEquals(employee.getId(), actualAddress.getEmployee().getId());
 
         verify(entityManager, times(1)).find(any(Class.class),eq(addressId));
+    }
+
+    @Test
+    public void getEmployeeDetails_returns_expected_employee() {
+        Address actualAddress = addressDAO.getEmployeePrimaryAddress(new Employee());
+        Assert.assertEquals(address.getId(), actualAddress.getId());
+
+        verify(entityManager, times(1)).createQuery(EMPLOYEE_PRIMARY_ADDRESS_QUERY);
+        verify(primaryAddressQuery,times(1)).getSingleResult();
     }
 }

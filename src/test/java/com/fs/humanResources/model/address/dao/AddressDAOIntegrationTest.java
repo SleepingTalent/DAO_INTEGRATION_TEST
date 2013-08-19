@@ -116,5 +116,18 @@ public class AddressDAOIntegrationTest extends BaseDAOTest {
         Assert.assertEquals(mainAddress.getPostCode(),actual.getPostCode());
     }
 
+    @Test
+    public void getEmployeePrimaryAddress_returns_AsExpected() {
+        Address actual = addressDAO.getEmployeePrimaryAddress(employee);
+
+        Assert.assertEquals(mainAddress.getId(),actual.getId());
+        Assert.assertEquals(mainAddress.getHouseNumber(),actual.getHouseNumber());
+        Assert.assertEquals(mainAddress.getAddressFirstLine(),actual.getAddressFirstLine());
+        Assert.assertEquals(mainAddress.getAddressSecondLine(),actual.getAddressSecondLine());
+        Assert.assertEquals(mainAddress.getTownCity(),actual.getTownCity());
+        Assert.assertEquals(mainAddress.getPostCode(),actual.getPostCode());
+    }
+
+
 }
 
