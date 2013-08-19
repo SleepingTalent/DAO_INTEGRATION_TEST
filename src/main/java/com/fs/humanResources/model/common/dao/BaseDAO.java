@@ -15,6 +15,12 @@ public abstract class BaseDAO<T> {
         this.entityClass = entityClass;
     }
 
+    public BaseDAO(Class<T> entityClass, EntityManager entityManager) {
+        this.entityClass = entityClass;
+        this.entityManager = entityManager;
+    }
+
+
     public long countAll() {
         final StringBuffer queryString = new StringBuffer(
                 "SELECT count(o) from ");

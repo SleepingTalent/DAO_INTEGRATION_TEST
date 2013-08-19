@@ -1,6 +1,9 @@
 package com.fs.helper;
 
 import com.fs.humanResources.model.common.factory.DAOFactory;
+import com.fs.humanResources.model.employee.dao.EmployeeDAO;
+import com.fs.humanResources.model.employee.entities.Employee;
+import org.junit.Assert;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,10 +15,7 @@ public class PersitenceHelper {
 
     private EntityTransaction entityTransaction;
 
-    private DAOFactory daoFactory;
-
     public PersitenceHelper(EntityManager entityManager) {
-        this.daoFactory = DAOFactory.getInstance();
         this.entityManager = entityManager;
     }
 
@@ -40,5 +40,17 @@ public class PersitenceHelper {
         if(null != entityManager) {
             entityManager.close();
         }
+    }
+
+    public Employee persistNewEmployee(Employee employee) {
+
+        Assert.assertNull("Expected Id to be Null!",employee.getId());
+
+        EmployeeDAO employeeDAO = new EmployeeDAO(entityManager);
+        employeeDAO.create(employee);
+
+        Assert.assertNotNull("Expected Id to be populated!",employee.getId());
+
+        return employee;
     }
 }

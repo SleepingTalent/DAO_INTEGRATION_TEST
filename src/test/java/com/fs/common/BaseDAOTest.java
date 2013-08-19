@@ -21,4 +21,8 @@ public class BaseDAOTest {
     protected void endTransaction()  {
         persitenceHelper.rollbackTransaction();
     }
+
+    protected EntityManager getEntityManager() {
+        return entityManager;
+    }
 }
