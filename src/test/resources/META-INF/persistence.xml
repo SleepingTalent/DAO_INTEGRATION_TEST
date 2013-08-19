@@ -6,7 +6,7 @@ http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
 
              version="1.0">
 
-    <persistence-unit name="integration-test">
+    <persistence-unit name="JpaPersistenceUnit">
         <properties>
             <!--
             <property name="hibernate.ejb.cfgfile" value="/hibernate.cfg.xml"/>
@@ -15,9 +15,6 @@ http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
             <property name="hibernate.archive.autodetection" value="class, hbm"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.password" value="codeExample"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3307/codeExampleDb"/>
-            <property name="hibernate.connection.username" value="codeExample"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.c3p0.min_size" value="5"/>
             <property name="hibernate.c3p0.max_size" value="20"/>
