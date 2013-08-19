@@ -10,6 +10,7 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import static org.mockito.Matchers.any;
@@ -90,9 +91,17 @@ public class EmployeeDAOTest extends BaseUnitTest {
     public void findById_looksfor_expected_employee() {
         Long employeeId = 1234l;
 
+        when(entityManager.find(any(Class.class),eq(employeeId))).thenReturn(new Employee());
+
         employeeDAO.findById(employeeId);
 
         verify(entityManager, times(1)).find(any(Class.class),eq(employeeId));
+    }
+
+    @Test(expected = NoResultException.class)
+    public void findById_throws_noResultsException_whenEmployeeNotFound() {
+        Long employeeId = 1234l;
+        employeeDAO.findById(employeeId);
     }
 
     @Test
