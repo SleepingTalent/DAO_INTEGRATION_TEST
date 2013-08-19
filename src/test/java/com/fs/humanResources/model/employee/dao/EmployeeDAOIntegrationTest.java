@@ -4,7 +4,10 @@ import com.fs.common.BaseDAOTest;
 import com.fs.humanResources.model.address.dao.AddressDAO;
 import com.fs.humanResources.model.address.entities.Address;
 import com.fs.humanResources.model.employee.entities.Employee;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.persistence.NoResultException;
 import java.util.Date;
@@ -98,7 +101,6 @@ public class EmployeeDAOIntegrationTest extends BaseDAOTest {
     }
 
     @Test
-    @Ignore
     public void employee_updatesAsExpected_newAddressAdded() {
         AddressDAO addressDAO = new AddressDAO(getEntityManager());
 
@@ -115,11 +117,11 @@ public class EmployeeDAOIntegrationTest extends BaseDAOTest {
 
         Assert.assertNull("Expected Address List to be null", employee.getAddressList());
 
-        Employee actual = employeeDAO.findById(employee.getId());
+        getEntityManager().refresh(employee);
 
-        Assert.assertNotNull("Expected Address List to be not null", actual.getAddressList());
-        Assert.assertEquals(0, actual.getAddressList().size());
-        Assert.assertEquals(1, addressDAO.getEmployeeAddressList(actual).size());
+        Assert.assertNotNull("Expected Address List to be not null", employee.getAddressList());
+        Assert.assertEquals(1, employee.getAddressList().size());
+        Assert.assertEquals(1, addressDAO.getEmployeeAddressList(employee).size());
 
     }
 

@@ -19,7 +19,7 @@ public class Employee extends BaseEntity {
     private Date dateOfBirth;
     private Long staffNumber;
 
-    @OneToMany(mappedBy="employee",cascade=CascadeType.PERSIST)
+    @OneToMany(mappedBy="employee",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addressList;
 
     public void setId(Long id) {
