@@ -5,7 +5,7 @@ CREATE TABLE employee (
           employeeId INT NOT NULL,
           firstname VARCHAR(100),
           lastname VARCHAR(100),
-          dataOfBirth DATE,
+          dateOfBirth DATE,
           PRIMARY KEY (id)
         );
 
