@@ -1,6 +1,7 @@
 package com.fs.humanResources.model.common.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -42,7 +43,14 @@ public abstract class BaseDAO<T> {
     }
 
     public T findById(final Object id) {
-        return (T) entityManager.find(entityClass, id);
+        T result = (T) entityManager.find(entityClass, id);
+
+        if(result == null) {
+         throw new NoResultException("No Results found for "+
+                 entityClass.getName()+" with id "+id);
+        }
+
+        return result;
     }
 
     public T update(final T entity) {
