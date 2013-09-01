@@ -39,7 +39,7 @@ public class EmployeeViewBeanTest extends BaseUnitTest {
         postCode = "AB1 CDXY";
 
         address = new AddressViewBean(houseNumber,addressFirstLine,addressSecondLine,townCity,postCode);
-        employeeViewBean = new EmployeeViewBean(firstName,lastName,dataOfBirth,employeeId,address);
+        employeeViewBean = new EmployeeViewBean(employeeId,firstName,lastName,dataOfBirth,address);
     }
 
     @Test

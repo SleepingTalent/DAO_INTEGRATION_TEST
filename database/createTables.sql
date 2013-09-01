@@ -1,17 +1,12 @@
 DROP TABLE IF EXISTS employee;
 
 CREATE TABLE employee (
-          id INT NOT NULL AUTO_INCREMENT,
-          staffNumber INT NOT NULL,
-          firstname VARCHAR(100),
-          lastname VARCHAR(100),
-          dateOfBirth DATE,
-          PRIMARY KEY (id)
-        );
-
-DROP INDEX staffNumber_index ON employee;
-
-CREATE INDEX staffNumber_index ON employee (staffNumber);
+  id INT NOT NULL AUTO_INCREMENT,
+  firstname VARCHAR(100),
+  lastname VARCHAR(100),
+  dateOfBirth DATE,
+  PRIMARY KEY (id)
+);
 
 DROP INDEX employee_lastname_index ON employee;
 
