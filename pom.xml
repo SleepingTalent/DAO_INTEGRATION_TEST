@@ -7,6 +7,12 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
+
+    <properties>
+        <skip.integration.tests>false</skip.integration.tests>
+    </properties>
+
+
     <build>
         <plugins>
             <plugin>
@@ -39,7 +45,7 @@
                                         <limit>
                                             <counter>INSTRUCTION</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.99</minimum>
+                                            <minimum>0.97</minimum>
                                         </limit>
                                         <limit>
                                             <counter>CLASS</counter>
@@ -54,7 +60,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.99</minimum>
+                                            <minimum>0.70</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
@@ -63,6 +69,81 @@
                     </execution>
                 </executions>
             </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.16</version>
+            <configuration>
+                <excludes>
+                    <exclude>**/*IntegrationTest*</exclude>
+                </excludes>
+            </configuration>
+        </plugin>
+        <plugin>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>2.16</version>
+            <configuration>
+                <includes>
+                    <include>**/*IntegrationTest*</include>
+                </includes>
+                <skip>${skip.integration.tests}</skip>
+                <failIfNoTests>true</failIfNoTests>
+                <failIfNoSpecifiedTests>true</failIfNoSpecifiedTests>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>run-integration-tests</id>
+                    <phase>integration-test</phase>
+                    <goals>
+                        <goal>integration-test</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>verify-integration-tests</id>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>verify</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+  <!--          <plugin>
+                <groupId>com.btmatthews.maven.plugins.inmemdb</groupId>
+                <artifactId>inmemdb-maven-plugin</artifactId>
+                <version>1.3.0</version>
+                <configuration>
+                    <monitorKey>inmemdb</monitorKey>
+                    <monitorPort>11527</monitorPort>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>run-h2-db</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <daemon>true</daemon>
+                            <type>h2</type>
+                            <database>test</database>
+                            <username>sa</username>
+                            <password></password>
+                            <sources>
+                                <script>
+                                    <sourceFile>src/test/resources/create_database.sql</sourceFile>
+                                </script>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop-h2-db</id>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <phase>post-integration-test</phase>
+                    </execution>
+                </executions>
+            </plugin>    -->
         </plugins>
     </build>
 
@@ -97,6 +178,11 @@
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.6.3.201306030806</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.3.174</version>
         </dependency>
     </dependencies>
 

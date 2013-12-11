@@ -6,13 +6,13 @@ import com.fs.humanResources.model.address.helper.AddressHelper;
 
 import javax.persistence.EntityManager;
 
-public class BaseDAOTest {
+public class BaseIntegrationTest {
 
     private static EntityManager entityManager = EntityManagerHelper.getEntityManagerFactory().createEntityManager();
 
     protected PersitenceHelper persitenceHelper;
 
-    public BaseDAOTest()  {
+    public BaseIntegrationTest()  {
          persitenceHelper = new PersitenceHelper(entityManager);
     }
 

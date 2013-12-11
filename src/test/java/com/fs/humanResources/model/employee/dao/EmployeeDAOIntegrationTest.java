@@ -1,6 +1,6 @@
 package com.fs.humanResources.model.employee.dao;
 
-import com.fs.common.BaseDAOTest;
+import com.fs.common.BaseIntegrationTest;
 import com.fs.humanResources.model.address.dao.AddressDAO;
 import com.fs.humanResources.model.address.entities.Address;
 import com.fs.humanResources.model.employee.entities.Employee;
@@ -12,7 +12,7 @@ import org.junit.Test;
 import javax.persistence.NoResultException;
 import java.util.Date;
 
-public class EmployeeDAOIntegrationTest extends BaseDAOTest {
+public class EmployeeDAOIntegrationTest extends BaseIntegrationTest {
 
     EmployeeDAO employeeDAO;
 
