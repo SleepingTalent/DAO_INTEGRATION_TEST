@@ -10,8 +10,11 @@
 
     <properties>
         <skip.integration.tests>false</skip.integration.tests>
+        <skip.mutation.tests>false</skip.mutation.tests>
+        <mutation.threshold>100</mutation.threshold>
+        <instruction.coverage.threshold>1.0</instruction.coverage.threshold>
+        <class.linecoverage.threshold>1.0</class.linecoverage.threshold>
     </properties>
-
 
     <build>
         <plugins>
@@ -45,7 +48,7 @@
                                         <limit>
                                             <counter>INSTRUCTION</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.97</minimum>
+                                            <minimum>${instruction.coverage.threshold}</minimum>
                                         </limit>
                                         <limit>
                                             <counter>CLASS</counter>
@@ -60,7 +63,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.70</minimum>
+                                            <minimum>${class.linecoverage.threshold}</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
@@ -109,6 +112,39 @@
         </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>pit-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-maven</artifactId>
+                        <version>0.32</version>
+                        <executions>
+                            <execution>
+                                <id>mutation-tests</id>
+                                <configuration>
+                                    <targetClasses>
+                                        <param>com.fs.humanResources.*</param>
+                                    </targetClasses>
+                                    <targetTests>
+                                        <param>com.fs.humanResources.*</param>
+                                    </targetTests>
+                                    <mutationThreshold>${mutation.threshold}</mutationThreshold>
+                                </configuration>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>mutationCoverage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>

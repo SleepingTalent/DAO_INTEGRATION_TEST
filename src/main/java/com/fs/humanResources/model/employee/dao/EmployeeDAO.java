@@ -9,10 +9,6 @@ import javax.persistence.NoResultException;
 
 public class EmployeeDAO extends BaseDAO<Employee> {
 
-    public EmployeeDAO() {
-        super(Employee.class);
-    }
-
     public EmployeeDAO(EntityManager entityManager) {
         super(Employee.class, entityManager);
     }

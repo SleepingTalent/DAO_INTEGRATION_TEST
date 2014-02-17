@@ -14,10 +14,6 @@ public class AddressDAO extends BaseDAO<Address>{
     private static final String FIND_EMPLOYEE_MAIN_ADDRESS = "select a from Address a where a.employee = :thisEmployee and a.primaryAddress = true";
     private static final String FIND_EMPLOYEE_ADDRESS_LIST = "select a from Address a where a.employee = :thisEmployee";
 
-    public AddressDAO() {
-        super(Address.class);
-    }
-
     public AddressDAO(EntityManager entityManager) {
         super(Address.class,entityManager);
     }
