@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="113197585">
+    <data-source source="LOCAL" name="jpa" uuid="22aec234-5d68-4867-a895-31b4482e0ffb">
+      <driver-ref>h2.embedded</driver-ref>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:mem;INIT=CREATE SCHEMA IF NOT EXISTS test</jdbc-url>
+      <user-name>sa</user-name>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="integration-test" uuid="58f93aaf-8e77-4d7d-9e53-5e30e8624db2">
+      <driver-ref>h2.embedded</driver-ref>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:mem;INIT=CREATE SCHEMA IF NOT EXISTS test</jdbc-url>
+      <user-name>sa</user-name>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+

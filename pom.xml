@@ -133,6 +133,7 @@
                                         <param>com.fs.humanResources.*</param>
                                     </targetTests>
                                     <mutationThreshold>${mutation.threshold}</mutationThreshold>
+                                    <timestampedReports>false</timestampedReports>
                                 </configuration>
                                 <phase>test</phase>
                                 <goals>
