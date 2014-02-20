@@ -13,6 +13,9 @@ import org.mockito.Mock;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.eq;
@@ -22,6 +25,7 @@ public class AddressDAOTest extends BaseUnitTest {
 
     public static final String COUNT_QUERY = "SELECT count(o) from Address o ";
     public static final String EMPLOYEE_PRIMARY_ADDRESS_QUERY = "select a from Address a where a.employee = :thisEmployee and a.primaryAddress = true";
+    public static final String FIND_EMPLOYEE_ADDRESS_LIST = "select a from Address a where a.employee = :thisEmployee";
 
     @InjectMocks
     AddressDAO addressDAO;
@@ -33,7 +37,7 @@ public class AddressDAOTest extends BaseUnitTest {
     Query countQuery;
 
     @Mock
-    Query primaryAddressQuery;
+    Query addressQuery;
 
     Long expectedCount;
 
@@ -61,8 +65,14 @@ public class AddressDAOTest extends BaseUnitTest {
         when(countQuery.getSingleResult()).thenReturn(expectedCount);
 
 
-        when(entityManager.createQuery(EMPLOYEE_PRIMARY_ADDRESS_QUERY)).thenReturn(primaryAddressQuery);
-        when(primaryAddressQuery.getSingleResult()).thenReturn(address);
+        when(entityManager.createQuery(EMPLOYEE_PRIMARY_ADDRESS_QUERY)).thenReturn(addressQuery);
+        when(addressQuery.getSingleResult()).thenReturn(address);
+
+        List<Address> addressList = new ArrayList<Address>();
+        addressList.add(address);
+
+        when(entityManager.createQuery(FIND_EMPLOYEE_ADDRESS_LIST)).thenReturn(addressQuery);
+        when(addressQuery.getResultList()).thenReturn(addressList);
 
         when(entityManager.find(any(Class.class), anyLong())).thenReturn(address);
     }
@@ -112,11 +122,22 @@ public class AddressDAOTest extends BaseUnitTest {
     }
 
     @Test
-    public void getEmployeeDetails_returns_expected_employee() {
+    public void getEmployeePrimaryAddress_returns_expected_employee() {
         Address actualAddress = addressDAO.getEmployeePrimaryAddress(new Employee());
         Assert.assertEquals(address.getId(), actualAddress.getId());
 
         verify(entityManager, times(1)).createQuery(EMPLOYEE_PRIMARY_ADDRESS_QUERY);
-        verify(primaryAddressQuery,times(1)).getSingleResult();
+        verify(addressQuery,times(1)).getSingleResult();
+    }
+
+
+    @Test
+    public void getEmployeeAddressList_returns_expected_employee() {
+        List<Address> addressList = addressDAO.getEmployeeAddressList(new Employee());
+        Assert.assertEquals(1, addressList.size());
+        Assert.assertEquals(address.getId(), addressList.get(0).getId());
+
+        verify(entityManager, times(1)).createQuery(FIND_EMPLOYEE_ADDRESS_LIST);
+        verify(addressQuery,times(1)).getResultList();
     }
 }
