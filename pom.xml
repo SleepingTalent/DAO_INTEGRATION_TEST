@@ -77,9 +77,9 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <version>2.16</version>
             <configuration>
-                <excludes>
-                    <exclude>**/*IntegrationTest*</exclude>
-                </excludes>
+                <groups>com.noveria.common.groups.UnitTest</groups>
+                <parallel>classes</parallel>
+                <threadCount>4</threadCount>
             </configuration>
         </plugin>
         <plugin>
@@ -87,8 +87,9 @@
             <version>2.16</version>
             <configuration>
                 <includes>
-                    <include>**/*IntegrationTest*</include>
+                    <include>**/*.java</include>
                 </includes>
+                <groups>com.noveria.common.groups.IntegrationTest</groups>
                 <skip>${skip.integration.tests}</skip>
                 <failIfNoTests>true</failIfNoTests>
                 <failIfNoSpecifiedTests>true</failIfNoSpecifiedTests>
@@ -121,19 +122,20 @@
                     <plugin>
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-maven</artifactId>
-                        <version>0.32</version>
+                        <version>0.33</version>
                         <executions>
                             <execution>
                                 <id>mutation-tests</id>
                                 <configuration>
                                     <targetClasses>
-                                        <param>com.fs.humanResources.*</param>
+                                        <param>com.noveria.humanResources.*</param>
                                     </targetClasses>
                                     <targetTests>
-                                        <param>com.fs.humanResources.*</param>
+                                        <param>com.noveria.humanResources.*</param>
                                     </targetTests>
                                     <mutationThreshold>${mutation.threshold}</mutationThreshold>
                                     <timestampedReports>false</timestampedReports>
+                                    <threads>4</threads>
                                 </configuration>
                                 <phase>test</phase>
                                 <goals>
